@@ -76,12 +76,12 @@ views:
                                name: "Wifi"
                                icon: "mdi:wifi"                                
                                
-                               # binary_sensor.s24_bluetooth_state
                              - type: "custom:button-card"
                                template: "custom_card_glance_icon"
                                entity: device_tracker.s24
                                name: "GPS"
-                               icon: "mdi:map-marker"   
+                               icon: "mdi:map-marker"  
+                               
                          - type: "horizontal-stack"
                            cards:  
                              - type: entities
@@ -96,8 +96,7 @@ views:
                                      # unit: '%'
                                    entities: 
                                      - entity: sensor.s24_charger_type
-                                       name: charger                                     
-                                    
+                                       name: charger                                                                        
   
                          - type: "map"
                            style:
@@ -167,9 +166,15 @@ views:
                            cards:
                              - type: "custom:button-card"
                                template: "custom_card_glance_icon"
-                               entity: "binary_sensor.s22_bluetooth_state"  
-                               name: "BT"
-                               icon: "mdi:bluetooth"                             
+                               entity: "sensor.s22_ble_transmitter"  
+                               name: "BLE"
+                               icon: "mdi:bluetooth" 
+                               
+                             # - type: "custom:button-card"
+                               # template: "custom_card_glance_icon"
+                               # entity: "binary_sensor.s22_bluetooth_state"  
+                               # name: "BT"
+                               # icon: "mdi:bluetooth"                             
                                
                              - type: "custom:button-card"
                                template: "custom_card_glance_icon"
@@ -209,15 +214,109 @@ views:
                            default_zoom: 15
                            entities: 
                              - device_tracker.s22 
-                  
+
               - type: custom:mushroom-person-card
                 entity: person.inara
                 use_entity_picture: true
                 hide_name: true
-                layout: vertical
+                layout: vertical                                        
                 tap_action:
-                  action: navigate
-                  navigation_path: /ui-lovelace-minimalist/home
+                 action: "fire-dom-event"
+                 browser_mod:
+                   service: "browser_mod.popup"
+                   data:
+                     title: "Inara"
+                     size: >
+                       [[[
+                         const mediaQuery = window.matchMedia("(max-width: 800px)")
+                         if (mediaQuery.matches) {
+                           return "fullscreen";
+                         }
+                       ]]]
+                     style: >
+                       --popup-padding-x: 0px;
+                       --popup-padding-y: 0px;
+                     card_mod:
+                       style:
+                         ha-dialog: >
+                           .content .container{
+                             padding: 0 !important;
+                           }
+                     content:
+                       type: "vertical-stack"
+                       cards:
+                         - type: "entities"
+                           style: >
+                             ha-card{
+                               box-shadow: none;
+                             }
+                           entities:
+                             - entity: person.inara
+                               secondary_info: "last-changed"
+                         - type: "history-graph"
+                           style: >
+                             ha-card{
+                               box-shadow: none;
+                             }
+                           hours_to_show: 8
+                           entities:
+                             - entity: person.inara
+                               name: "‎"
+                         - type: "horizontal-stack"
+                           cards:
+                             - type: "custom:button-card"
+                               template: "custom_card_glance_icon"
+                               entity: "sensor.s20_ble_transmitter"  
+                               name: "BLE"
+                               icon: "mdi:bluetooth"                              
+                               
+                             - type: "custom:button-card"
+                               template: "custom_card_glance_icon"
+                               entity: device_tracker.s20
+                               name: "GPS"
+                               icon: "mdi:map-marker"   
+
+                         - type: "horizontal-stack"
+                           cards:  
+                             - type: entities
+                               entities:                           
+                                 - entity: sensor.s20_battery_state
+                                   type: custom:multiple-entity-row
+                                   name: S20
+                                   state_header: "phone is"
+                                   secondary_info: 
+                                     entity: sensor.s20_battery_level
+                                     name: " "
+                                     # unit: '%'
+                                   entities: 
+                                     - entity: sensor.s20_charger_type
+                                       name: charger                                 
+                                 
+                         - type: "map"
+                           style:
+                             .: >
+                               ha-card{
+                                 box-shadow: none;
+                                 border-radius: 0px;
+                               }
+                             ha-map:
+                               $: >
+                                 .leaflet-control-attribution {
+                                   display: none;
+                                 }
+                           aspect_ratio: "40%"
+                           default_zoom: 15
+                           entities: 
+                             - device_tracker.s20                              
+                  
+              # - type: custom:mushroom-person-card
+                # entity: person.inara
+                # use_entity_picture: true
+                # hide_name: true
+                # layout: vertical
+                # tap_action:
+                  # action: navigate
+                  # navigation_path: /ui-lovelace-minimalist/home
                   
               - type: custom:mushroom-person-card
                 entity: person.ethan
@@ -480,7 +579,7 @@ views:
               - type: 'custom:button-card'
                 template: chip_icon_state
                 entity: binary_sensor.motion_sensor_motion_detection
-                label: "🧍"
+                label: "🏠"
                 state:
                   - value: "on"
                     styles:
@@ -494,7 +593,7 @@ views:
               - type: 'custom:button-card'
                 template: chip_icon_state
                 entity: binary_sensor.office_occupied
-                label: "🏠"
+                label: "🧍"
                 state:
                   - value: "on"
                     styles:
@@ -518,6 +617,29 @@ views:
                 tap_action:
                   action: more-info
                   entity: switch.pc  
+
+              # - type: 'custom:button-card'
+                # template: chip_icon_state
+                # entity: sensor.plex_plex
+                # label: "📺"
+                # state:
+                  # - value: "1"
+                    # styles:
+                      # card:
+                        # - background-color: darkgreen
+                        # - opacity: "1"            
+                # tap_action:
+                  # action: more-info
+                  # entity: sensor.plex_plex                    
+                  
+              # - type: 'custom:button-card'
+                # template: chip_icon_state
+                # variables:
+                  # ulm_chip_icon_state_icon: '📺'
+                  # ulm_chip_icon_state_entity: sensor.plex_plex   
+                # tap_action:
+                  # action: more-info
+                  # entity: sensor.plex_plex   
                   
               - type: 'custom:button-card'
                 template: chip_icon_state
@@ -587,7 +709,31 @@ views:
                   ulm_custom_card_bar_card_color: "var(--google-green)"
                   ulm_custom_card_bar_card_min: 0
                   ulm_custom_card_bar_card_max: 100                    
-            
+
+          - type: custom:mini-media-player
+            entity: media_player.marantz_m_cr511
+            name: Marantz
+            # icon: '🔅'
+            # artwork: none
+            hide:
+              source: true
+              power: true
+              controls: true
+              
+          - type: conditional
+            conditions:
+              - entity: media_player.plex_plex_web_opera_windows_3
+                state_not: "unavailable"
+            card:
+              type: custom:mini-media-player
+              entity: media_player.plex_plex_web_opera_windows_3
+              artwork: cover
+              name: Plex
+              hide:
+                volume: true
+                power: true
+                controls: true                
+      
             
   - title: "Living"
     path: 2
