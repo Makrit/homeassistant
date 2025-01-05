@@ -563,44 +563,30 @@ views:
                     name: Online
                   - entity: sensor.office_pm25
                     name: Pm25
-             
-          - type: custom:button-card
-            template: custom_card_irmajavi_entities
-            variables:
-              ulm_custom_card_irmajavi_entities_entity_1: switch.office_auto_fan_mode
-              ulm_custom_card_irmajavi_entities_entity_2: fan.office_fan
-              ulm_custom_card_irmajavi_entities_entity_3: light.office_led_light
-              ulm_custom_card_irmajavi_entities_entity_4: sensor.office_pm25
-              ulm_custom_card_irmajavi_entities_name_1: Auto
-              ulm_custom_card_irmajavi_entities_name_2: Fan
-              ulm_custom_card_irmajavi_entities_name_3: LED
-              ulm_custom_card_irmajavi_entities_name_4: Pm25
-              ulm_custom_card_irmajavi_entities_name: s
-              ulm_custom_card_irmajavi_entities: binary_sensor.office_online
-             
+                        
 
-          # - type: "horizontal-stack"
-            # cards: 
-              # - type: "custom:button-card"
-                # template: custom_card_bar_card
-                # variables:
-                  # ulm_custom_card_bar_card_entity: sensor.pc_rich_pc_cpuload
-                  # ulm_custom_card_bar_card_name: PC CPU
-                  ##ulm_custom_card_bar_card_value: true
-                  # ulm_custom_card_bar_card_indicator: true
-                  # ulm_custom_card_bar_card_color: "var(--google-green)"
-                  # ulm_custom_card_bar_card_min: 0
-                  # ulm_custom_card_bar_card_max: 100                  
-              # - type: "custom:button-card"
-                # template: custom_card_bar_card
-                # variables:
-                  # ulm_custom_card_bar_card_entity: sensor.pc_rich_pc_gpuload
-                  # ulm_custom_card_bar_card_name: PC GPU
-                  ##ulm_custom_card_bar_card_value: true
-                  # ulm_custom_card_bar_card_indicator: true
-                  # ulm_custom_card_bar_card_color: "var(--google-green)"
-                  # ulm_custom_card_bar_card_min: 0
-                  # ulm_custom_card_bar_card_max: 100                    
+          - type: "horizontal-stack"
+            cards: 
+              - type: "custom:button-card"
+                template: custom_card_bar_card
+                variables:
+                  ulm_custom_card_bar_card_entity: sensor.pc_rich_pc_cpuload
+                  ulm_custom_card_bar_card_name: PC CPU
+                  #ulm_custom_card_bar_card_value: true
+                  ulm_custom_card_bar_card_indicator: true
+                  ulm_custom_card_bar_card_color: "var(--google-green)"
+                  ulm_custom_card_bar_card_min: 0
+                  ulm_custom_card_bar_card_max: 100                  
+              - type: "custom:button-card"
+                template: custom_card_bar_card
+                variables:
+                  ulm_custom_card_bar_card_entity: sensor.pc_rich_pc_gpuload
+                  ulm_custom_card_bar_card_name: PC GPU
+                  #ulm_custom_card_bar_card_value: true
+                  ulm_custom_card_bar_card_indicator: true
+                  ulm_custom_card_bar_card_color: "var(--google-green)"
+                  ulm_custom_card_bar_card_min: 0
+                  ulm_custom_card_bar_card_max: 100                    
             
             
   - title: "Living"
