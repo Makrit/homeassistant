@@ -2,13 +2,13 @@ custom_card_irmajavi_entities:
   template:
     - "ulm_translation_engine"
   triggers_update: "all"
-  show_icon: false
-  show_name: false
-  show_label: false
+  show_icon: true
+  show_name: true
+  show_label: true
   styles:
     grid:
-      - grid-template-areas: "'item1' 'item2''item3' 'item4'"
-      - grid-template-columns: "1fr"
+      - grid-template-areas: "'item1' 'item2'"
+      - grid-template-columns: "1fr 1fr"
       - grid-template-rows: "min-content min-content"
       - row-gap: "12px"
     card:
@@ -20,44 +20,33 @@ custom_card_irmajavi_entities:
     item1:
       card:
         type: "custom:button-card"
-        color: "var(--google-grey)"
         show_icon: false
         show_label: true
         show_name: true
         styles:
           name:
-            - align-self: "start"
-            - justify-self: "start"
+            - align-self: "center"
+            - justify-self: "center"
             - font-weight: "bold"
-            - font-size: "14px"
-            - margin-left: "12px"
-          grid:
-            - grid-template-areas: "'n' 'l'"
-            - grid-template-columns: "min-content auto min-content"
-            - grid-template-rows: "min-content min-content"
+            - font-size: "16px"
           card:
             - box-shadow: "none"
             - border-radius: "20px"
             - border: "2px solid var(--google-grey)"
             - height: "70px"
           label:
-            - justify-self: "start"
+            - justify-self: "center"
             - align-self: "end"
-            - font-weight: "bold"
+            - font-weight: "normal"
             - font-size: "14px"
-            - filter: "opacity(40%)"
-            - margin-left: "35px"
         name: |
-          [[[
-            var icon = '👽';
-            if (variables.ulm_custom_card_irmajavi_entities_icon)
-            {
-              var icon = variables.ulm_custom_card_irmajavi_entities_icon;
-            }
-            return icon + "' '" + variables.ulm_custom_card_irmajavi_entities_name;
+          [[[ 
+            return variables.ulm_custom_card_irmajavi_entities_name || "Default Name"; 
           ]]]
         label: |
-          [[[ return states[variables.ulm_custom_card_irmajavi_entities].state ]]]
+          [[[ 
+            return states[variables.ulm_custom_card_irmajavi_entities].state || "Unknown"; 
+          ]]]
     item2:
       card:
         type: "custom:button-card"
@@ -68,60 +57,48 @@ custom_card_irmajavi_entities:
               type: "custom:button-card"
               template: "custom_widget_irmajavi"
               entity: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_1;
-                ]]]
-              name: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_name_1
-                ]]]
+                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_1; ]]]
           item2:
             card:
               type: "custom:button-card"
               template: "custom_widget_irmajavi"
               entity: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_2;
-                ]]]
-              name: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_name_2
-                ]]]
+                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_2; ]]]
           item3:
             card:
               type: "custom:button-card"
               template: "custom_widget_irmajavi"
               entity: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_3;
-                ]]]
-              name: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_name_3
-                ]]]
+                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_3; ]]]
           item4:
             card:
               type: "custom:button-card"
               template: "custom_widget_irmajavi"
               entity: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_4;
-                ]]]
-              name: >-
-                [[[ return variables.ulm_custom_card_irmajavi_entities_name_4
-                ]]]
+                [[[ return variables.ulm_custom_card_irmajavi_entities_entity_4; ]]]
 custom_widget_irmajavi:
   show_label: true
-  show_icon: false
-  label: "[[[ return variables.ulm_translation_state ]]]"
+  show_icon: true
+  label: |
+    [[[ 
+      return states[entity].state || "No Data"; 
+    ]]]
   styles:
     name:
       - justify-self: "center"
-      - align-self: "start"
-      - font-weight: "bolder"
-      - font-size: "12px"
-      - filter: "opacity(40%)"
-    label:
-      - margin-top: "10px"
-      - justify-self: "center"
+      - text-align: "center"
+      - align-self: "center"
       - font-weight: "bold"
-      - font-size: "14px"
+      - font-size: "12px"
+      - padding: "4px"
+    label:
+      - justify-self: "center"
+      - margin-top: "5px"
     grid:
-      - grid-template-areas: "'l' 'n'"
+      - grid-template-areas: "'i' 'n' 'l'"
       - grid-template-columns: "1fr"
-      - grid-template-rows: "min-content min-content"
+      - grid-template-rows: "min-content min-content min-content"
     card:
-      - box-shadow: "none"
+      - box-shadow: none
+      - padding: "8px"
+      - width: "100%"
