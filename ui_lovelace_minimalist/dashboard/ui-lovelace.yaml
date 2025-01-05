@@ -168,13 +168,7 @@ views:
                                template: "custom_card_glance_icon"
                                entity: "sensor.s22_ble_transmitter"  
                                name: "BLE"
-                               icon: "mdi:bluetooth" 
-                               
-                             # - type: "custom:button-card"
-                               # template: "custom_card_glance_icon"
-                               # entity: "binary_sensor.s22_bluetooth_state"  
-                               # name: "BT"
-                               # icon: "mdi:bluetooth"                             
+                               icon: "mdi:bluetooth"                                                        
                                
                              - type: "custom:button-card"
                                template: "custom_card_glance_icon"
