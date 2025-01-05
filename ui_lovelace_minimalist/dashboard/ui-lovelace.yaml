@@ -1,0 +1,728 @@
+button_card_templates: !include_dir_merge_named "../../custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"
+
+title: "Home"
+theme: "minimalist-desktop"
+background: "var(--background-image)"
+# views: !include_dir_merge_list "views/"
+
+views:
+  - title: "Main"
+    path: 0
+    icon: "mdi:home"
+    cards:     
+      - type: "horizontal-stack"
+        cards:                 
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:                      
+              - type: custom:mushroom-person-card
+                entity: person.rich
+                use_entity_picture: true
+                hide_name: true
+                layout: vertical                                        
+                tap_action:
+                 action: "fire-dom-event"
+                 browser_mod:
+                   service: "browser_mod.popup"
+                   data:
+                     title: "Rich"
+                     size: >
+                       [[[
+                         const mediaQuery = window.matchMedia("(max-width: 800px)")
+                         if (mediaQuery.matches) {
+                           return "fullscreen";
+                         }
+                       ]]]
+                     style: >
+                       --popup-padding-x: 0px;
+                       --popup-padding-y: 0px;
+                     card_mod:
+                       style:
+                         ha-dialog: >
+                           .content .container{
+                             padding: 0 !important;
+                           }
+                     content:
+                       type: "vertical-stack"
+                       cards:
+                         - type: "entities"
+                           style: >
+                             ha-card{
+                               box-shadow: none;
+                             }
+                           entities:
+                             - entity: person.rich
+                               secondary_info: "last-changed"
+                         - type: "history-graph"
+                           style: >
+                             ha-card{
+                               box-shadow: none;
+                             }
+                           hours_to_show: 8
+                           entities:
+                             - entity: person.rich
+                               name: "‎"
+                         - type: "horizontal-stack"
+                           cards:
+                             - type: "custom:button-card"
+                               template: "custom_card_glance_icon"
+                               entity: "sensor.s24_ble_transmitter"  
+                               name: "BLE"
+                               icon: "mdi:bluetooth" 
+                               
+                             - type: "custom:button-card"
+                               template: "custom_card_glance_icon"
+                               entity: "binary_sensor.s24_wifi_state"  
+                               name: "Wifi"
+                               icon: "mdi:wifi"                                
+                               
+                               # binary_sensor.s24_bluetooth_state
+                             - type: "custom:button-card"
+                               template: "custom_card_glance_icon"
+                               entity: device_tracker.s24
+                               name: "GPS"
+                               icon: "mdi:map-marker"   
+                         - type: "horizontal-stack"
+                           cards:  
+                             - type: entities
+                               entities:                           
+                                 - entity: sensor.s24_battery_state
+                                   type: custom:multiple-entity-row
+                                   name: S24
+                                   state_header: "phone is"
+                                   secondary_info: 
+                                     entity: sensor.s24_battery_level
+                                     name: " "
+                                     # unit: '%'
+                                   entities: 
+                                     - entity: sensor.s24_charger_type
+                                       name: charger                                     
+                                    
+  
+                         - type: "map"
+                           style:
+                             .: >
+                               ha-card{
+                                 box-shadow: none;
+                                 border-radius: 0px;
+                               }
+                             ha-map:
+                               $: >
+                                 .leaflet-control-attribution {
+                                   display: none;
+                                 }
+                           aspect_ratio: "40%"
+                           default_zoom: 15
+                           entities: 
+                             - device_tracker.s24                                   
+
+              - type: custom:mushroom-person-card
+                entity: person.sara
+                use_entity_picture: true
+                hide_name: true
+                layout: vertical                                        
+                tap_action:
+                 action: "fire-dom-event"
+                 browser_mod:
+                   service: "browser_mod.popup"
+                   data:
+                     title: "Sara"
+                     size: >
+                       [[[
+                         const mediaQuery = window.matchMedia("(max-width: 800px)")
+                         if (mediaQuery.matches) {
+                           return "fullscreen";
+                         }
+                       ]]]
+                     style: >
+                       --popup-padding-x: 0px;
+                       --popup-padding-y: 0px;
+                     card_mod:
+                       style:
+                         ha-dialog: >
+                           .content .container{
+                             padding: 0 !important;
+                           }
+                     content:
+                       type: "vertical-stack"
+                       cards:
+                         - type: "entities"
+                           style: >
+                             ha-card{
+                               box-shadow: none;
+                             }
+                           entities:
+                             - entity: person.sara
+                               secondary_info: "last-changed"
+                         - type: "history-graph"
+                           style: >
+                             ha-card{
+                               box-shadow: none;
+                             }
+                           hours_to_show: 8
+                           entities:
+                             - entity: person.sara
+                               name: "‎"
+                         - type: "horizontal-stack"
+                           cards:
+                             - type: "custom:button-card"
+                               template: "custom_card_glance_icon"
+                               entity: "binary_sensor.s22_bluetooth_state"  
+                               name: "BT"
+                               icon: "mdi:bluetooth"                             
+                               
+                             - type: "custom:button-card"
+                               template: "custom_card_glance_icon"
+                               entity: device_tracker.s22
+                               name: "GPS"
+                               icon: "mdi:map-marker"   
+
+                         - type: "horizontal-stack"
+                           cards:  
+                             - type: entities
+                               entities:                           
+                                 - entity: sensor.s22_battery_state
+                                   type: custom:multiple-entity-row
+                                   name: S22
+                                   state_header: "phone is"
+                                   secondary_info: 
+                                     entity: sensor.s22_battery_level
+                                     name: " "
+                                     # unit: '%'
+                                   entities: 
+                                     - entity: sensor.s22_charger_type
+                                       name: charger                                 
+                                 
+                         - type: "map"
+                           style:
+                             .: >
+                               ha-card{
+                                 box-shadow: none;
+                                 border-radius: 0px;
+                               }
+                             ha-map:
+                               $: >
+                                 .leaflet-control-attribution {
+                                   display: none;
+                                 }
+                           aspect_ratio: "40%"
+                           default_zoom: 15
+                           entities: 
+                             - device_tracker.s22 
+                  
+              - type: custom:mushroom-person-card
+                entity: person.inara
+                use_entity_picture: true
+                hide_name: true
+                layout: vertical
+                tap_action:
+                  action: navigate
+                  navigation_path: /ui-lovelace-minimalist/home
+                  
+              - type: custom:mushroom-person-card
+                entity: person.ethan
+                use_entity_picture: true
+                hide_name: true
+                layout: vertical
+                tap_action:
+                  action: navigate
+                  navigation_path: /ui-lovelace-minimalist/home
+                  
+      - type: custom:stack-in-card
+        mode: vertical
+        cards:
+          # Welcome Box
+          - type: "custom:button-card"
+            template: "card_esh_welcome"
+            triggers_update: "input_boolean.welcome_toggle"
+            variables:
+              ulm_card_esh_welcome_collapse: input_boolean.welcome_toggle
+              ulm_weather: "weather.forecast_home"
+              entity_1:
+                nav: "1"
+                icon: "mdi:laptop"
+                name: "Office"
+                color: "blue"
+              entity_2:
+                nav: "2"
+                icon: "mdi:sofa"
+                name: "Living"
+                color: "yellow"
+              entity_3:
+                nav: "3"
+                icon: "mdi:wrench"
+                name: "Control"
+                color: "green"
+              entity_4:
+                nav: "4"
+                icon: "mdi:security"
+                name: "Alarm"
+                color: "purple"
+              entity_5:
+                nav: "5"
+                icon: "mdi:nas"
+                name: "Server"
+                color: "red"            
+     
+      - type: custom:stack-in-card
+        mode: horizontal 
+        cards:        
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-template-columns: 95% 
+              margin: '-8px'       
+            cards:              
+              - type: custom:fold-entity-row                
+                open: true                
+                head:
+                  type: custom:template-entity-row                  
+                  name: >
+                   Lights ({{ states.light | selectattr('state', 'eq', 'on') | list | length }} On)
+                  entity: light.example_light
+                  tap_action:
+                    action: none    
+                
+                entities:        
+                      - type: custom:vertical-stack-in-card
+                        cards:
+                          - type: horizontal-stack
+                            cards:
+                              - type: custom:slider-button-card
+                                entity: light.monitor_lights
+                                slider:
+                                  direction: left-right
+                                  background: gradient
+                                icon:
+                                  icon: mdi:led-strip
+                                  tap_action:
+                                    action: more-info
+                                action_button:
+                                  mode: toggle
+                              - type: custom:slider-button-card
+                                entity: light.office_lamp
+                                slider:
+                                  direction: left-right
+                                  background: gradient
+                                icon:
+                                  icon: mdi:desk-lamp
+                                  tap_action:
+                                    action: more-info
+                                action_button:
+                                  mode: toggle
+
+                              - type: custom:slider-button-card
+                                entity: light.kitchen_main
+                                slider:
+                                  direction: left-right
+                                  background: gradient
+                                icon:
+                                  icon: mdi:chandelier
+                                  tap_action:
+                                    action: more-info
+                                action_button:
+                                  mode: toggle
+
+                          - type: horizontal-stack
+                            cards:
+                              - type: custom:slider-button-card
+                                entity: light.front_room_lamp
+                                slider:
+                                  direction: left-right
+                                  background: gradient
+                                icon:
+                                  icon: mdi:floor-lamp-outline
+                                  tap_action:
+                                    action: more-info
+                                action_button:
+                                  mode: toggle
+
+                              - type: custom:slider-button-card
+                                entity: light.stairs_lower
+                                slider:
+                                  direction: left-right
+                                  background: gradient
+                                icon:
+                                  icon: mdi:ceiling-light
+                                  tap_action:
+                                    action: more-info
+                                action_button:
+                                  mode: toggle
+
+                              - type: custom:slider-button-card
+                                entity: light.stairs_upper
+                                slider:
+                                  direction: left-right
+                                  background: gradient
+                                icon:
+                                  icon: mdi:ceiling-light
+                                  tap_action:
+                                    action: more-info
+                                action_button:
+                                  mode: toggle
+                              - type: custom:slider-button-card
+                                entity: light.inara_main
+                                slider:
+                                  direction: left-right
+                                  background: gradient
+                                icon:
+                                  icon: mdi:ceiling-light
+                                  tap_action:
+                                    action: more-info
+                                action_button:
+                                  mode: toggle                                  
+     
+              - type: custom:layout-card
+                layout_type: custom:grid-layout
+                layout:
+                  grid-template-columns: 5% 35% 35%
+                  grid-template-areas: |
+                    "left l1 center r1 right"
+                  margin: '-5px'
+                cards:
+                  - type: 'custom:button-card'
+                    template: card_title
+                    custom_fields:
+                      icon: >
+                        [[[
+                          return `<span style="font-size: 20px;">🖥️</span>`;
+                        ]]]
+                      status: >
+                        [[[
+                          return `<div style="text-align: center;">
+                                    <span style="font-weight: bold; font-size: 14px;">Office</span><br>
+                                    <span style="font-size: 10px;">
+                                      ${states['binary_sensor.motion_sensor_motion_detection'].state === 'on' ? 'On' : 'Clear'}
+                                      •
+                                      ${states['binary_sensor.office_occupied'].state === 'on' ? 'Occupied' : 'Clear'}
+                                    </span>
+                                  </div>`;
+                        ]]]
+                    styles:
+                      custom_fields:
+                        icon:
+                          - justify-self: center
+                          - padding-bottom: 4px
+                        status:
+                          - justify-self: center
+                    view_layout:
+                      grid-area: l1
+
+                  - type: 'custom:button-card'
+                    template: card_title
+                    custom_fields:
+                      icon: >
+                        [[[
+                          return `<span style="font-size: 20px;">🥫</span>`;
+                        ]]]
+                      status: >
+                        [[[
+                          return `<div style="text-align: center;">
+                                    <span style="font-weight: bold; font-size: 14px;">Kitchen</span><br>
+                                    <span style="font-size: 10px;">
+                                      ${states['binary_sensor.motion_sensor_158d0001a66215'].state === 'on' ? 'On' : 'Clear'}
+                                      •
+                                      ${states['binary_sensor.kitchen_occupied'].state === 'on' ? 'Occupied' : 'Clear'}
+                                    </span>
+                                  </div>`;
+                        ]]]
+                    styles:
+                      custom_fields:
+                        icon:
+                          - justify-self: center
+                          - padding-bottom: 4px
+                        status:
+                          - justify-self: center
+                    view_layout:
+                      grid-area: center
+
+                  - type: 'custom:button-card'
+                    template: card_title
+                    custom_fields:
+                      icon: >
+                        [[[
+                          return `<span style="font-size: 20px;">🪜</span>`;
+                        ]]]
+                      status: >
+                        [[[
+                          return `<div style="text-align: center;">
+                                    <span style="font-weight: bold; font-size: 14px;">Stairs</span><br>
+                                    <span style="font-size: 10px;">
+                                      ${states['binary_sensor.motion_sensor_158d0001ad6865'].state === 'on' ? 'On' : 'Clear'}
+                                      •
+                                      ${states['binary_sensor.living_room_occupied'].state === 'on' ? 'Occupied' : 'Clear'}
+                                    </span>
+                                  </div>`;
+                        ]]]
+                    styles:
+                      custom_fields:
+                        icon:
+                          - justify-self: center
+                          - padding-bottom: 4px
+                        status:
+                          - justify-self: center
+                    view_layout:
+                      grid-area: r1
+              
+  - title: "Office"
+    path: 1
+    icon: "mdi:laptop"
+    cards:
+      - type: "vertical-stack"
+        cards:                   
+          - type: "horizontal-stack"
+            cards:  
+              - type: 'custom:button-card'
+                template: chip_back
+                variables:
+                  ulm_chip_back_path: /ui-lovelace-minimalist/home  
+                  
+              - type: 'custom:button-card'
+                template: chip_icon_state
+                entity: binary_sensor.motion_sensor_motion_detection
+                label: "🧍"
+                state:
+                  - value: "on"
+                    styles:
+                      card:
+                        - background-color: darkgreen
+                        - opacity: "1"                        
+                tap_action:
+                  action: more-info
+                  entity: binary_sensor.motion_sensor_motion_detection    
+                  
+              - type: 'custom:button-card'
+                template: chip_icon_state
+                entity: binary_sensor.office_occupied
+                label: "🏠"
+                state:
+                  - value: "on"
+                    styles:
+                      card:
+                        - background-color: darkgreen
+                        - opacity: "1"                        
+                tap_action:
+                  action: more-info
+                  entity: binary_sensor.office_occupied
+                  
+              - type: 'custom:button-card'
+                template: chip_icon_state
+                entity: switch.pc
+                label: "💻"
+                state:
+                  - value: "on"
+                    styles:
+                      card:
+                        - background-color: darkgreen
+                        - opacity: "1"            
+                tap_action:
+                  action: more-info
+                  entity: switch.pc  
+                  
+              - type: 'custom:button-card'
+                template: chip_icon_state
+                variables:
+                  ulm_chip_icon_state_icon: '🌡'
+                  ulm_chip_icon_state_entity: sensor.motion_sensor_air_temperature  
+                tap_action:
+                  action: more-info
+                  entity: sensor.motion_sensor_air_temperature    
+                  
+              - type: 'custom:button-card'
+                template: chip_icon_state
+                variables:
+                  ulm_chip_icon_state_icon: '🔅'
+                  ulm_chip_icon_state_entity: sensor.motion_sensor_illuminance                  
+                tap_action:
+                  action: more-info
+                  entity: sensor.motion_sensor_illuminance                                  
+
+          - type: "grid"
+            columns: 2
+            square: false
+            cards:
+              - type: "entities"
+                title: "Controls"
+                entities:
+                  - entity: switch.office_auto_fan_mode
+                    name: Auto Fan Mode
+                  - entity: switch.office_child_lock
+                    name: Child Lock
+                  - entity: fan.office_fan
+                    name: Fan
+                  - entity: light.office_led_light
+                    name: LED Light
+                  - entity: switch.office_night_mode
+                    name: Night Mode
+              - type: "entities"
+                title: "Sensors"
+                entities:
+                  - entity: binary_sensor.office_filter_expiration
+                    name: Filter Expiration
+                  - entity: binary_sensor.office_online
+                    name: Online
+                  - entity: sensor.office_pm25
+                    name: Pm25
+             
+          - type: custom:button-card
+            template: custom_card_irmajavi_entities
+            variables:
+              ulm_custom_card_irmajavi_entities_entity_1: switch.office_auto_fan_mode
+              ulm_custom_card_irmajavi_entities_entity_2: fan.office_fan
+              ulm_custom_card_irmajavi_entities_entity_3: light.office_led_light
+              ulm_custom_card_irmajavi_entities_entity_4: sensor.office_pm25
+              ulm_custom_card_irmajavi_entities_name_1: Auto
+              ulm_custom_card_irmajavi_entities_name_2: Fan
+              ulm_custom_card_irmajavi_entities_name_3: LED
+              ulm_custom_card_irmajavi_entities_name_4: Pm25
+              ulm_custom_card_irmajavi_entities_name: s
+              ulm_custom_card_irmajavi_entities: binary_sensor.office_online
+             
+
+          # - type: "horizontal-stack"
+            # cards: 
+              # - type: "custom:button-card"
+                # template: custom_card_bar_card
+                # variables:
+                  # ulm_custom_card_bar_card_entity: sensor.pc_rich_pc_cpuload
+                  # ulm_custom_card_bar_card_name: PC CPU
+                  ##ulm_custom_card_bar_card_value: true
+                  # ulm_custom_card_bar_card_indicator: true
+                  # ulm_custom_card_bar_card_color: "var(--google-green)"
+                  # ulm_custom_card_bar_card_min: 0
+                  # ulm_custom_card_bar_card_max: 100                  
+              # - type: "custom:button-card"
+                # template: custom_card_bar_card
+                # variables:
+                  # ulm_custom_card_bar_card_entity: sensor.pc_rich_pc_gpuload
+                  # ulm_custom_card_bar_card_name: PC GPU
+                  ##ulm_custom_card_bar_card_value: true
+                  # ulm_custom_card_bar_card_indicator: true
+                  # ulm_custom_card_bar_card_color: "var(--google-green)"
+                  # ulm_custom_card_bar_card_min: 0
+                  # ulm_custom_card_bar_card_max: 100                    
+            
+            
+  - title: "Living"
+    path: 2
+    icon: "mdi:sofa"
+    cards:
+      - type: "vertical-stack"
+        cards:     
+          - type: "horizontal-stack"
+            cards:  
+              - type: 'custom:button-card'
+                template: chip_back
+                variables:
+                  ulm_chip_back_path: /ui-lovelace-minimalist/home        
+    
+  - title: "Control"
+    path: 3
+    icon: "mdi:fridge"
+    cards:
+      - type: "vertical-stack"
+        cards:     
+          - type: "horizontal-stack"
+            cards:  
+              - type: 'custom:button-card'
+                template: chip_back
+                variables:
+                  ulm_chip_back_path: /ui-lovelace-minimalist/home  
+          
+          - type: 'custom:button-card'
+            template: card_binary_sensor
+            variables:
+              # ulm_card_binary_sensor_alert: false
+              # ulm_show_last_changed: false
+              ulm_card_binary_sensor_force_background_color: true
+              ulm_card_binary_sensor_color: green
+            entity: input_boolean.officedisable
+          - type: 'custom:button-card'
+            template: card_binary_sensor
+            variables:
+              # ulm_card_binary_sensor_alert: false
+              # ulm_show_last_changed: false
+              ulm_card_binary_sensor_force_background_color: true 
+              ulm_card_binary_sensor_color: green
+            entity: input_boolean.kitchendisable  
+          - type: 'custom:button-card'
+            template: card_binary_sensor
+            variables:
+              # ulm_card_binary_sensor_alert: false
+              # ulm_show_last_changed: false
+              ulm_card_binary_sensor_force_background_color: true             
+              ulm_card_binary_sensor_color: green
+            entity: input_boolean.livingdisable    
+
+          - type: 'custom:button-card'
+            template: card_vertical_button
+            entity: input_boolean.officedisable
+            name: Office Lights Override
+            icon: mdi:lamp
+            show_last_changed: true
+            variables:
+              # ulm_card_vertical_button_state: Office Lights Override
+              ulm_card_vertical_button_color: blue           
+                       
+  - title: "Alarm"
+    path: 4
+    icon: "mdi:security"
+    cards:
+      - type: "vertical-stack"
+        cards:     
+          - type: "horizontal-stack"
+            cards:  
+              - type: 'custom:button-card'
+                template: chip_back
+                variables:
+                  ulm_chip_back_path: /ui-lovelace-minimalist/home   
+              - type: 'custom:button-card'
+                template: chip_alarm
+                entity: alarm_control_panel.alarmo                    
+                  
+  - title: "Server"
+    path: 5
+    icon: "mdi:nas"
+    cards:
+      - type: "vertical-stack"
+        cards:     
+          - type: "horizontal-stack"
+            cards:  
+              - type: 'custom:button-card'
+                template: chip_back
+                variables:
+                  ulm_chip_back_path: /ui-lovelace-minimalist/home    
+              # - type: 'custom:button-card'
+                # template: chip_alarm
+                # entity: alarm_control_panel.alarmo   
+          - type: "custom:button-card"
+            template: "custom_card_nik_nas"
+            entity: input_boolean.server_power
+            variables:
+              graph_span: "1d"
+              chart_type: "radialBar"
+              entity_1:
+                entity_id: "sensor.192_168_1_248_package_id_0_temperature"
+                icon: ''
+                name: "Temp"
+                color: "yellow"
+                max_value: 100
+              entity_2:
+                entity_id: "sensor.192_168_1_248_ram_used_percent"
+                icon: ''
+                name: "Memory"
+                color: "blue"
+                max_value: 100
+              entity_3:
+                entity_id: "sensor.192_168_1_248_cpu_used"
+                icon: ''
+                name: "CPU"
+                color: "green"
+                max_value: 100
+              entity_4:
+                entity_id: "sensor.192_168_1_248_used_percent"
+                icon: "mdi:harddisk"
+                name: "Disk"
+                color: "red"  
+                
+                                       

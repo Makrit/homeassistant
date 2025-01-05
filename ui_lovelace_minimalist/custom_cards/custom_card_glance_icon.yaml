@@ -1,0 +1,38 @@
+custom_card_glance_icon:
+  variables:
+    color: "green"
+    states: ["on", "home", "charging", "Transmitting"]
+  tap_action:
+    action: "none"
+  triggers_update: "[[[ return entity.entity_id; ]]]"
+  show_label: false
+  show_state: false
+  size: "20px"
+  state:
+    - operator: "template"
+      value: "[[[ return variables.states.includes(entity.state); ]]]"
+      styles:
+        icon:
+          - color: "[[[ return `rgba(var(--color-${variables.color}), 1)`; ]]]"
+        img_cell:
+          - background-color: "[[[ return `rgba(var(--color-${variables.color}), 0.2)`; ]]]"
+  styles:
+    icon:
+      - color: "rgba(var(--color-theme),0.2)"
+    name:
+      - margin-bottom: "12px"
+      - justify-self: "center"
+      - align-self: "start"
+      - font-weight: "regular"
+      - font-size: "14px"
+    img_cell:
+      - background-color: "rgba(var(--color-theme),0.05)"
+      - border-radius: "50%"
+      - place-self: "center"
+      - width: "42px"
+      - height: "42px"
+    grid:
+      - grid-template-areas: "'n' 'i'"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "none"
